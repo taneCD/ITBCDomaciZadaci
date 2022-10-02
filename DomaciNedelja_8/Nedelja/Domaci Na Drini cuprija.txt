@@ -1,0 +1,173 @@
+    //a) izbrojati koliko reda teksta ima u romanu (u našem fajlu)  --12473
+        try{
+            BufferedReader reader = new BufferedReader(new FileReader("na drini cuprija.txt"));
+            String s;
+            long lines=0;
+            while(reader.readLine()!=null)
+                lines++;
+            System.out.println(lines);
+            reader.close();
+
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+------------------------------------------------------------------------------------------------------
+        //b) izbrojati koliko različitih reči ima u romanu (bez ponavljanja)--23482
+
+        try{
+            BufferedReader reader = new BufferedReader(new FileReader("na drini cuprija.txt"));
+            String s;
+            long lines=0;
+            HashSet<String>jedinstveneReci=new HashSet<>();
+
+            while((s=reader.readLine())!=null) {
+
+                String cisti= s.replace(";","").replace(":","").replace(",","").replace(".","");
+                String[] reciSplit = cisti.split(" ");
+                for(var el: reciSplit){
+                    jedinstveneReci.add(el);
+                }
+            }
+            System.out.println(jedinstveneReci.size());
+            reader.close();
+
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+------------------------------------------------------------------------------------------------------
+   //c) naći najdužu reč----tiridiridiridiridiridam
+
+        try{
+            BufferedReader reader = new BufferedReader(new FileReader("na drini cuprija.txt"));
+            String s;
+            long lines=0;
+
+            String najduzaRec=" ";
+            HashSet<String>jedinstveneReci=new HashSet<>();
+            while((s=reader.readLine())!=null) {
+                String cisti= s.replace(";","").replace(":","").replace(",","").replace(".","");
+                String[] reciSplit = cisti.split(" ");
+                for(var el: reciSplit){
+                    jedinstveneReci.add(el);
+                }
+            }
+            for(String el:jedinstveneReci){
+                if(najduzaRec.length()<el.length()) {
+                    najduzaRec = el;
+                }
+            }
+            System.out.println(najduzaRec);
+
+            reader.close();
+
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+------------------------------------------------------------------------------------------------------
+
+        //d) naći najkraću reč
+
+        try{
+            BufferedReader reader = new BufferedReader(new FileReader("na drini cuprija.txt"));
+            String s;
+            long lines=0;
+
+            String najkracaRec="tiridiridiridirdyhhgfhidiridam";
+            HashSet<String>jedinstveneReci=new HashSet<>();
+            while((s=reader.readLine())!=null) {
+                String cisti= s.replace(";","").replace(":","").replace(",","").replace(".","").replace("?","").replace("??","");
+                String[] reciSplit = cisti.split(" ");
+
+                for(var el: reciSplit){
+                    jedinstveneReci.add(el);
+                }
+            }
+            for(String el:jedinstveneReci){
+                if(najkracaRec.length()>el.length() && el.trim().length() > 1) {
+                    najkracaRec = el;
+                }
+            }
+//            if(najkracaRec.isEmpty()){
+//                System.out.println("Najkraca rec je prazan string.");
+//            }
+            System.out.println(najkracaRec);
+
+            reader.close();
+
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+------------------------------------------------------------------------------------------------------
+//*e) naći 10 najkraćih reči
+
+            try {
+            BufferedReader reader = new BufferedReader(new FileReader("na drini cuprija.txt"));
+            String s;
+            long lines = 0;
+            int brojac = 0;
+            String najkracaRec = "t";
+
+            HashSet<String> jedinstveneReci = new HashSet<>();
+            while ((s = reader.readLine()) != null) {
+                String cisti = s.replace(";", "").replace(":", "").replace(",", "").replace(".", "").replace("-","").replace("&","").replace("&","").replace("(","").replace("?","").replace("1","").replace("2","").replace("3","").replace("4","").replace("5","").replace("6","").replace("7","").replace("8","").replace("9","").replace("0","");
+                String[] reciSplit = cisti.split(" ");
+
+                for (var el : reciSplit) {
+                    if (el.length() > 1) {
+                        jedinstveneReci.add(el.toLowerCase());
+                    }
+                }
+            }
+            String arr[] = new String[jedinstveneReci.size()];
+            int i = 0;
+
+            // iterating over the hashset
+            for (String ele : jedinstveneReci) {
+                arr[i++] = ele;
+            }
+            for (i = 0; i < arr.length - 1; i++) {
+                int index = i;
+                for (int j = i + 1; j < arr.length; j++) {
+                    if (arr[j].length() < arr[index].length()) {
+                        index = j;//searching for lowest index
+                    }
+                }
+                String smallerNumber = arr[index];
+                arr[index] = arr[i];
+                arr[i] = smallerNumber;
+            }
+
+                ArrayList<String> desetNajkracih = new ArrayList<>();
+                for (int j = 0; j < 10; j++) {
+                    desetNajkracih.add(arr[j]);
+                }
+            System.out.println(desetNajkracih);
+            reader.close();
+
+            } catch(IOException e){
+                e.printStackTrace();
+            }
+
+------------------------------------------------------------------------------------------------------
+ //*h) naći koliko rečenica (završavaju se sa ".") ima u romanu
+
+   try{
+            BufferedReader reader = new BufferedReader(new FileReader("na drini cuprija.txt"));
+            String s="";
+            int totalCharacters = 0;
+            while((s=reader.readLine())!=null) {
+                s=s.replace("...","").replace("..","").replace("....","");
+                char temp;
+                for (int i = 0; i < s.length(); i++) {
+
+                    temp = s.charAt(i);
+                    if (temp == '.')
+                        totalCharacters++;
+                }
+            }
+            System.out.println(totalCharacters);
+            reader.close();
+
+        } catch (IOException e){
+            e.printStackTrace();
+        }

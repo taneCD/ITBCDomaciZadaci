@@ -1,0 +1,38 @@
+--11. a) Направити нову табелу која описује order_status из табеле orders
+--    b) Повезати ове две табеле (сами нађите смисао за имена статуса)
+
+--Napravio novu tabelu
+CREATE table order_status_exp(
+order_status_id tinyint PRIMARY KEY,
+status_meaning varchar(50)
+)
+--Ubacio podatke u novu tabelu
+INSERT INTO order_status_exp VALUES
+(1, 'Order made'),
+(2, 'Order processing'),
+(3, 'Order shipped'),
+(4, 'Order received')
+
+--U staru tabelu dodao strani kljuc da bih je spojio sa novom tabelom
+ALTER TABLE sales.orders 
+ADD FOREIGN KEY (order_status) REFERENCES dbo.order_status_exp(order_status_id)
+
+SELECT * FROM sales.orders so
+JOIN dbo.order_status_exp ose ON so.order_status = ose.order_status_id
+WHERE status_meaning='Order received'
+
+--12. Извући све активне наруџбине (неки од статуса)
+SELECT * FROM sales.orders so
+JOIN dbo.order_status_exp ose ON so.order_status = ose.order_status_id
+WHERE order_status !=4
+ORDER BY status_meaning
+
+--13. Извући све продавнице са активним наруџбинама
+SELECT DISTINCT store_name FROM sales.stores ss
+JOIN sales.orders so ON so.store_id = ss.store_id
+WHERE order_status!=4
+
+--14. Извући све запослене који немају активне наруџбине
+SELECT DISTINCT first_name, last_name, phone FROM sales.staffs ss
+JOIN sales.orders so ON ss.staff_id = so.staff_id
+WHERE order_status=4
